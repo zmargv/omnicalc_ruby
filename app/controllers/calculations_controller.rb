@@ -86,27 +86,41 @@ class CalculationsController < ApplicationController
     # The numbers the user input are in the array @numbers.
     # ================================================================================
 
-    @sorted_numbers = "Replace this string with your answer."
+    @sorted_numbers = @numbers.sort
 
-    @count = "Replace this string with your answer."
+    @count = @numbers.length
 
-    @minimum = "Replace this string with your answer."
+    @minimum = @numbers.min
 
-    @maximum = "Replace this string with your answer."
+    @maximum = @numbers.max
 
-    @range = "Replace this string with your answer."
+    @range = @numbers.max - @numbers.min
+    
+    def median(array)
+      sorted = array.sort
+      len = sorted.length
+      (sorted[(len - 1) / 2] + sorted[len / 2]) / 2.0
+    end
 
-    @median = "Replace this string with your answer."
+    @median = median(@numbers)
 
-    @sum = "Replace this string with your answer."
+    @sum = @numbers.sum
 
-    @mean = "Replace this string with your answer."
+    @mean = @sum / @count
 
-    @variance = "Replace this string with your answer."
+    @variance = @numbers.map { |i| (i - @mean)**2 }.sum / @count
 
-    @standard_deviation = "Replace this string with your answer."
+    @standard_deviation = @variance**0.5
 
-    @mode = "Replace this string with your answer."
+    @mode = @numbers.sort
+     .chunk {|e| e}
+     .map { |e,a| [e, a.size] }
+     .sort_by { |_,cnt| -cnt }
+     .chunk(&:last)
+     .first
+     .last
+     .map(&:first)
+     .last
 
     # ================================================================================
     # Your code goes above.
