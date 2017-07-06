@@ -17,7 +17,7 @@ class CalculationsController < ApplicationController
 
     @character_count_without_spaces = @text.length - @text.count(' ')
 
-    @occurrences = @text.scan(/the/).length
+    @occurrences = @text.downcase.scan(/the/).length
 
     # ================================================================================
     # Your code goes above.
